@@ -24,6 +24,7 @@ void createFile(char* array_ch)
 }
 int main(int argc, char const* argv[])
 {
+    std::string ip = (argc > 1) ? argv[1] : "192.168.1.233";//works?	
     int status, valread, client_fd;
     struct sockaddr_in serv_addr;
     char hello[] = {"Hello from client\n"};
@@ -37,7 +38,7 @@ int main(int argc, char const* argv[])
     serv_addr.sin_port = htons(PORT);
     // Convert IPv4 and IPv6 addresses from text to binary
     // form
-    if (inet_pton(AF_INET, "192.168.1.233", &serv_addr.sin_addr) <= 0)
+    if (inet_pton(AF_INET, ip.c_str(), &serv_addr.sin_addr) <= 0)
     {
 	std::cout << "\nInvalid address/ Address not supported \n";
         return -1;
