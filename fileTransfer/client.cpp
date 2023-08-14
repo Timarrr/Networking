@@ -11,7 +11,7 @@ int main(int argc, char const* argv[])
     int status, valread, client_fd;
     struct sockaddr_in serv_addr;
     char hello[] = {"Hello from client\n"};
-    char buffer[4096] = { 0 };
+    char buffer[100000] = { 0 };
     if ((client_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0) 
     {
 	std::cout << "\n Socket creation error \n";
