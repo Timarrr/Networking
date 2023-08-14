@@ -20,6 +20,7 @@ void createFile(char* array_ch)
     std::string line;
     while(std::getline(code, line, '\0'))	file << line << '\n';
     file.close();
+    
 }
 int main(int argc, char const* argv[])
 {
