@@ -11,7 +11,7 @@ int main(int argc, char const* argv[])
     int status, valread, client_fd;
     struct sockaddr_in serv_addr;
     char hello[] = {"Hello from client\n"};
-    char buffer[100000] = { 0 };
+    char buffer[65535] = { 0 };
     if ((client_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0) 
     {
 	std::cout << "\n Socket creation error \n";
@@ -36,9 +36,11 @@ int main(int argc, char const* argv[])
     }
     send(client_fd, hello, strlen(hello), 0);
     std::cout << "Hello message sent\n";
-    valread = read(client_fd, buffer, 100000);
+    valread = read(client_fd, buffer, 65535);
     std::cout << std::string(buffer);
     // closing the connected socket
     close(client_fd);
+    shutdown(client_fd, SHUT_RDWR);
+
     return 0;
 }

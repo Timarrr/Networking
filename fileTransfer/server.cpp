@@ -9,7 +9,7 @@
 #include <sys/socket.h>
 #include <unistd.h>
 #include "server.hpp"
-#define PORT 54000
+#define PORT 55000
 //void sendFile(std::string &file_s)
 //{
 //	file_s.	
@@ -41,7 +41,7 @@ int main(int argc, const char **argv)
     address.sin_addr.s_addr = INADDR_ANY;
     address.sin_port = htons(PORT);
   
-    // Forcefully attaching socket to the port 8080
+    // Forcefully attaching socket to the port 
     if (bind(server_fd, (struct sockaddr*)&address, sizeof(address)) < 0) 
     {
 		std::cerr << "bind failed\n";
@@ -52,19 +52,24 @@ int main(int argc, const char **argv)
 		std::cerr << "listen\n";
    		return -3;
     }
+	std::cout << "initializing client socket ...\n";
     clientSocket = accept(server_fd, (struct sockaddr*)&address, (socklen_t*)&addrlen);
     if(clientSocket == -1)
     {
         std::cerr << "Problem with client connecting!";
         return -4;
     }
-
+	std::cout << "connection established\n";
 //    std::cout << "Client address: " << inet_ntoa(client.sin_addr) << " and port: " << client.sin_port << std::endl;
 
     close(server_fd);
 
     char buf[4096];
-    std::string fuckYouString = getFile(argc, argv);
+	std::string content_ = getFile(argc, argv);
+	std::string filename = argv[1];
+	std::string size_ = std::to_string(content_.size());
+    std::string fuckYouString = filename + '\n' + size_ + '\n' + content_;
+	std::cout << "listening ...\n";
     while (true)
     {
         // clear buffer
