@@ -8,7 +8,7 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <unistd.h>
-#define PORT 8080
+#define PORT 55000
 int main(int argc, char const* argv[])
 {
     int server_fd, clientSocket, valread;
