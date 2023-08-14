@@ -14,11 +14,11 @@ void createFile(char* array_ch)
     std::stringstream code{array_ch};
     std::string filename_ = "";
     std::string size_ = "";
-    std::getline(code, filename_, '\0');
-    std::getline(code, size_, '\0');
+    std::getline(code, filename_, '\n');
+    std::getline(code, size_, '\n');
     std::ofstream file(filename_, std::ios::binary);
     std::string line;
-    while(std::getline(code, line, '\0'))	file << line;
+    while(std::getline(code, line, '\0'))	file << line << '\n';
     file.close();
 }
 int main(int argc, char const* argv[])
