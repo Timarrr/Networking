@@ -4,7 +4,7 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <unistd.h>
-#define PORT 54000
+#define PORT 55000
   
 int main(int argc, char const* argv[])
 {
@@ -26,10 +26,13 @@ int main(int argc, char const* argv[])
 	std::cout << "\nInvalid address/ Address not supported \n";
         return -1;
     }
-    if ((status = connect(client_fd, (struct sockaddr*)&serv_addr, sizeof(serv_addr))) < 0) 
+    while(1)
     {
-	std::cout << "\nConnection Failed \n";
-        return -1;
+	if ((status = connect(client_fd, (struct sockaddr*)&serv_addr, sizeof(serv_addr))) < 0) 
+	{
+	    std::cout << "\nConnection Failed \n";
+	}
+	else break;
     }
     send(client_fd, hello, strlen(hello), 0);
     std::cout << "Hello message sent\n";
