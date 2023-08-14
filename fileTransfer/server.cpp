@@ -65,16 +65,15 @@ int main(int argc, const char **argv)
     close(server_fd);
 
     char buf[4096];
-	std::string content_ = getFile(argc, argv);
-	std::string filename = argv[1];
-	std::string size_ = std::to_string(content_.size());
+    std::string content_ = getFile(argc, argv);
+    std::string filename = argv[1];
+    std::string size_ = std::to_string(content_.size());
     std::string fuckYouString = filename + '\n' + size_ + '\n' + content_;
-	std::cout << "listening ...\n";
+    std::cout << "listening ...\n";
     while (true)
     {
         // clear buffer
         memset(buf, 0, 4096);
-
         // wait for a message
         int bytesRecv = recv(clientSocket, buf, 4096, 0);
         if (bytesRecv == -1)
@@ -85,10 +84,8 @@ int main(int argc, const char **argv)
         {
             std::cout << "The client disconnected" << std::endl;
         }
-        
         // display message
         std::cout << "Received: " << std::string(buf, 0, bytesRecv);
-
         // return message
         send(clientSocket, fuckYouString.c_str(), fuckYouString.size(), 0);
     }
