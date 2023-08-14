@@ -19,6 +19,7 @@ void createFile(char* array_ch)
     std::ofstream file(filename_, std::ios::binary);
     std::string line;
     while(std::getline(code, line, '\0'))	file << line;
+    file.close();
 }
 int main(int argc, char const* argv[])
 {
