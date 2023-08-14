@@ -1,6 +1,6 @@
-// Server side C/C++ program to demonstrate Socket
-// programming
 #include <iostream>
+#include <string>
+#include <filesystem>
 #include <fstream>
 #include <netinet/in.h>
 #include <stdio.h>
@@ -8,26 +8,33 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <unistd.h>
-#define PORT 55000
-int main(int argc, char const* argv[])
+#include "server.hpp"
+#define PORT 54000
+//void sendFile(std::string &file_s)
+//{
+//	file_s.	
+//}
+int main(int argc, const char **argv)
 {
+//	getFile(argc, argv);
     int server_fd, clientSocket, valread;
     struct sockaddr_in address;
     int opt = 1;
     int addrlen = sizeof(address);
 //    char buffer[1024] = { 0 };
+	
     char hello[] = {"Hello from server\n"};
   
     // Creating socket file descriptor
     if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
     {
-	std::cerr << "socket failed\n";
+		std::cerr << "socket failed\n";
         return -1;
     }
     // Forcefully attaching socket to the port 8080
     if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt, sizeof(opt))) 
     {
-	std::cerr << "setsockopt\n";
+		std::cerr << "setsockopt\n";
         return -1;
     }
     address.sin_family = AF_INET;
@@ -37,16 +44,16 @@ int main(int argc, char const* argv[])
     // Forcefully attaching socket to the port 8080
     if (bind(server_fd, (struct sockaddr*)&address, sizeof(address)) < 0) 
     {
-	std::cerr << "bind failed\n";
+		std::cerr << "bind failed\n";
     	return -2;
     }
-    if (listen(server_fd, 3) < 0) 
+    if(listen(server_fd, 3) < 0) 
     {
-	std::cerr << "listen\n";
-   	return -3;
+		std::cerr << "listen\n";
+   		return -3;
     }
     clientSocket = accept(server_fd, (struct sockaddr*)&address, (socklen_t*)&addrlen);
-    if (clientSocket == -1)
+    if(clientSocket == -1)
     {
         std::cerr << "Problem with client connecting!";
         return -4;
@@ -57,7 +64,7 @@ int main(int argc, char const* argv[])
     close(server_fd);
 
     char buf[4096];
-    std::string fuckYouString{"fuch your request\n"};
+    std::string fuckYouString = getFile(argc, argv);
     while (true)
     {
         // clear buffer
