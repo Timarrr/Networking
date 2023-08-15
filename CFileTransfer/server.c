@@ -3,7 +3,7 @@
 #include <string.h>
 #include <strings.h>
 #include <arpa/inet.h>
-#define SIZE 1024
+#define SIZE 2048
  
 void write_file(int sockfd, const char *name)
 {
