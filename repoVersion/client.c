@@ -27,7 +27,7 @@ int main(int argc, char **argv){
   int sockfd;
   struct sockaddr_in server_addr;
   FILE *fp;
-  char *filename = "send.txt";
+  char *filename = argv[2];
 
   sockfd = socket(AF_INET, SOCK_STREAM, 0);
   if(sockfd < 0) {
