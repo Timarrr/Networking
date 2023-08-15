@@ -49,7 +49,7 @@ int main(int argc, const char **argv)
     }
     if(listen(server_fd, 3) < 0) 
     {
-	td::cerr << "listen\n";
+	std::cerr << "listen\n";
    	return -3;
     }
 	std::cout << "initializing client socket ...\n";
@@ -71,7 +71,7 @@ int main(int argc, const char **argv)
     std::string fuckYouString = "BEGINNING\n" + filename + '\n' + size_ + '\n' + content_;
     std::cout << "listening ...\n";
     uint32_t actualSize = fuckYouString.size();
-    uint32_t bytesSent = 0
+    uint32_t bytesSent = 0;
     while (true)
     {
         // clear buffer
