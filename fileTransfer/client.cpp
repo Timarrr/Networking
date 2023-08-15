@@ -9,14 +9,41 @@
 #include <sys/socket.h>
 #include <unistd.h>
 #define PORT 55000
-void createFile(char* array_ch)
+std::string filename_g = "";
+void writeFile(char* array_ch)
 {
     std::stringstream code{array_ch};
+    std::string previousContent{};
+
+    std::string firstLine = "";
     std::string filename_ = "";
     std::string size_ = "";
-    std::getline(code, filename_, '\n');
-    std::getline(code, size_, '\n');
+    std::getline(code, firstLine);
+    bool new_f = 1;
+    if(firstLine == "BEGINNING")
+    {
+	std::getline(code, filename_, '\n');
+	filename_g = filename_;
+	std::getline(code, size_, '\n');
+    }
+    else
+    {
+	filename_ = filename_g;
+	std::string line{};
+	std::ifstream sameFuckingFile(filename_, std::ios::binary);
+	while(std::getline(sameFuckingFile, line, '\0'))	
+	{
+	    sameFuckingFile >> line;
+	    previousContent += line +'\n';
+	}
+	sameFuckingFile.close();
+    }
     std::ofstream file(filename_, std::ios::binary);
+    if(!new_f)	
+    {
+	file << previousContent << '\n';
+	file << firstLine << '\n';
+    }
     std::string line;
     while(std::getline(code, line, '\0'))	file << line << '\n';
     file.close();
@@ -58,7 +85,7 @@ int main(int argc, char const* argv[])
 	valread = read(client_fd, buffer, 65535);
     	if(valread > 0)
 	{
-		createFile(buffer);
+		writeFile(buffer);
 		std::cout << std::string(buffer);
 	}
 

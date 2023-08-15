@@ -4,6 +4,7 @@ struct file_s
 {
 	std::string name;
 	std::string content;
+	uint32_t size;
 };
 const std::string getFile(int argc, const char **argv)
 {

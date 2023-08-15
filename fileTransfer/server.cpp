@@ -28,13 +28,13 @@ int main(int argc, const char **argv)
     // Creating socket file descriptor
     if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
     {
-		std::cerr << "socket failed\n";
+	std::cerr << "socket failed\n";
         return -1;
     }
     // Forcefully attaching socket to the port 8080
     if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt, sizeof(opt))) 
     {
-		std::cerr << "setsockopt\n";
+	std::cerr << "setsockopt\n";
         return -1;
     }
     address.sin_family = AF_INET;
@@ -44,13 +44,13 @@ int main(int argc, const char **argv)
     // Forcefully attaching socket to the port 
     if (bind(server_fd, (struct sockaddr*)&address, sizeof(address)) < 0) 
     {
-		std::cerr << "bind failed\n";
+	std::cerr << "bind failed\n";
     	return -2;
     }
     if(listen(server_fd, 3) < 0) 
     {
-		std::cerr << "listen\n";
-   		return -3;
+	td::cerr << "listen\n";
+   	return -3;
     }
 	std::cout << "initializing client socket ...\n";
     clientSocket = accept(server_fd, (struct sockaddr*)&address, (socklen_t*)&addrlen);
@@ -68,8 +68,10 @@ int main(int argc, const char **argv)
     std::string content_ = getFile(argc, argv);
     std::string filename = argv[1];
     std::string size_ = std::to_string(content_.size());
-    std::string fuckYouString = filename + '\n' + size_ + '\n' + content_;
+    std::string fuckYouString = "BEGINNING\n" + filename + '\n' + size_ + '\n' + content_;
     std::cout << "listening ...\n";
+    uint32_t actualSize = fuckYouString.size();
+    uint32_t bytesSent = 0
     while (true)
     {
         // clear buffer
@@ -87,7 +89,7 @@ int main(int argc, const char **argv)
         // display message
         std::cout << "Received: " << std::string(buf, 0, bytesRecv);
         // return message
-        send(clientSocket, fuckYouString.c_str(), fuckYouString.size(), 0);
+        bytesSent += send(clientSocket, fuckYouString.c_str(), fuckYouString.size(), 0);
     }
     // close socket
     close(clientSocket);
