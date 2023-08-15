@@ -22,12 +22,14 @@ void writeFile(char* array_ch)
     bool new_f = 1;
     if(firstLine == "BEGINNING")
     {
+	std::cout << "first piece of data\n";
 	std::getline(code, filename_, '\n');
 	filename_g = filename_;
 	std::getline(code, size_, '\n');
     }
     else
     {
+	std::cout << "the nth pith of data\n";
 	filename_ = filename_g;
 	std::string line{};
 	std::ifstream sameFuckingFile(filename_, std::ios::binary);
@@ -42,7 +44,9 @@ void writeFile(char* array_ch)
     if(!new_f)	
     {
 	file << previousContent << '\n';
+	std::cout << "Previous content: " << previousContent << '\n';
 	file << firstLine << '\n';
+	std::cout << firstLine;
     }
     std::string line;
     while(std::getline(code, line, '\0'))	file << line << '\n';

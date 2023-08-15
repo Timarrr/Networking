@@ -10,10 +10,6 @@
 #include <unistd.h>
 #include "server.hpp"
 #define PORT 55000
-//void sendFile(std::string &file_s)
-//{
-//	file_s.	
-//}
 int main(int argc, const char **argv)
 {
 //	getFile(argc, argv);
