@@ -4,7 +4,7 @@
 #include <string.h>
 #include <strings.h>
 #include <arpa/inet.h>
-#define SIZE 65535
+#define SIZE 1024
  
 void send_file(FILE *fp, int sockfd)
 {
