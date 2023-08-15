@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <strings.h>
 #include <arpa/inet.h>
 #define SIZE 1024
 
@@ -18,8 +19,8 @@ void send_file(FILE *fp, int sockfd){
   }
 }
 
-int main(){
-  char *ip = "127.0.0.1";
+int main(int argc, char **argv){
+  char *ip = argv[1];
   int port = 8080;
   int e;
 

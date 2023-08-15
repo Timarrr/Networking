@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <strings.h>
 #include <arpa/inet.h>
 #define SIZE 1024
 
@@ -23,8 +24,8 @@ void write_file(int sockfd){
   return;
 }
 
-int main(){
-  char *ip = "127.0.0.1";
+int main(int argc, char **argv){
+  char *ip = argv[1];
   int port = 8080;
   int e;
 
